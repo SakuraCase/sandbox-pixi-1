@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:develop": "webpack --mode development",
-    "build:production": "webpack --mode production",
+    "build": "webpack --mode production",
     "test:lint": "tslint -p tsconfig.json --format stylish \"src/**/*.ts*\"",
     "dev": "webpack-dev-server",
     "tsc": "tsc -p ."

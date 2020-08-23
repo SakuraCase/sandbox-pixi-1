@@ -1,4 +1,4 @@
-import GameManager from "managers/GameManager"
+import GameManager from "managers/GameManager";
 
 window.onload = () => {
   GameManager.start({
@@ -6,6 +6,6 @@ window.onload = () => {
     glHeight: 400,
     option: {
       backgroundColor: 0x1099bb,
-    }
+    },
   });
 };

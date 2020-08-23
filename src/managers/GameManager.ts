@@ -1,10 +1,10 @@
 import * as PIXI from "pixi.js";
-import { detect } from 'detect-browser';
-import ApplicationOptions from 'interfaces/ApplicationOptions';
-import Config from 'Config';
+import { detect } from "detect-browser";
+import ApplicationOptions from "interfaces/ApplicationOptions";
+import Config from "Config";
 // import IndexedDBManager from 'managers/IndexedDBManager';
 // import SoundManager from 'managers/SoundManager';
-import Scene from 'scenes/Scence';
+import Scene from "scenes/Scence";
 
 /**
  * ゲーム全体のマネージャ
@@ -26,12 +26,12 @@ export default class GameManager {
    * シーンのリソースロード完了フラグ
    * シーントランジションを制御するためのフラグ
    */
-  private sceneResourceLoaded: boolean = true;
+  private sceneResourceLoaded = true;
   /**
    * シーンのトランジション完了フラグ
    * シーントランジションを制御するためのフラグ
    */
-  private sceneTransitionOutFinished: boolean = true;
+  private sceneTransitionOutFinished = true;
   /**
    * 現在のシーンインスタンス
    */
@@ -43,7 +43,7 @@ export default class GameManager {
    */
   constructor(app: PIXI.Application) {
     if (GameManager.instance) {
-      throw new Error('GameManager can be instantiate only once');
+      throw new Error("GameManager can be instantiate only once");
     }
 
     this.game = app;
@@ -54,14 +54,14 @@ export default class GameManager {
    * 画面サイズや ApplicationOptions を渡すことができる
    */
   public static start(params: {
-    glWidth: number,
-    glHeight: number,
-    option?: ApplicationOptions
+    glWidth: number;
+    glHeight: number;
+    option?: ApplicationOptions;
   }): void {
     const appOption = Object.assign(
       {
         width: params.glWidth,
-        height: params.glHeight
+        height: params.glHeight,
       },
       params.option
     );
@@ -81,7 +81,7 @@ export default class GameManager {
     document.body.appendChild(game.view);
 
     // リサイズイベントの登録
-    window.addEventListener('resize', GameManager.resizeCanvas);
+    window.addEventListener("resize", GameManager.resizeCanvas);
     // サイズ初期化
     GameManager.resizeCanvas();
 
@@ -182,7 +182,7 @@ export default class GameManager {
       canvasHeight = window.innerHeight;
     }
 
-    game.view.style.width  = `${canvasWidth}px`;
+    game.view.style.width = `${canvasWidth}px`;
     game.view.style.height = `${canvasHeight}px`;
   }
 
@@ -192,9 +192,9 @@ export default class GameManager {
   private static enableFullScreenIfNeeded(): void {
     const browser = detect();
     // iOS は対応していないが一応記述しておく
-    if (browser && (browser.os === 'iOS' || browser.os === 'Android OS')) {
+    if (browser && (browser.os === "iOS" || browser.os === "Android OS")) {
       const type = typeof document.ontouchend;
-      const eventName = (type === 'undefined') ? 'mousedown' : 'touchend';
+      const eventName = type === "undefined" ? "mousedown" : "touchend";
       document.body.addEventListener(eventName, GameManager.requestFullScreen);
     }
   }

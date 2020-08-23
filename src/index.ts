@@ -1,12 +1,11 @@
-import * as PIXI from "pixi.js";
+import GameManager from "managers/GameManager"
 
 window.onload = () => {
-  const app = new PIXI.Application({
-    width: 600,
-    height: 400,
-    backgroundColor: 0x1099bb,
+  GameManager.start({
+    glWidth: 600,
+    glHeight: 400,
+    option: {
+      backgroundColor: 0x1099bb,
+    }
   });
-
-  const element = document.getElementById("app");
-  element?.appendChild(app.view);
 };

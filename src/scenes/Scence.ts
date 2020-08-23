@@ -1,14 +1,14 @@
-import * as PIXI from 'pixi.js';
+import * as PIXI from "pixi.js";
 // import Resource from 'Resource';
-import LoaderAddParam from 'interfaces/LoaderAddParam';
+import LoaderAddParam from "interfaces/LoaderAddParam";
 // import * as UI from 'interfaces/UiGraph/index';
-import Transition from 'interfaces/Transition';
-import GameManager from 'managers/GameManager';
+import Transition from "interfaces/Transition";
+import GameManager from "managers/GameManager";
 // import SoundManager from 'managers/SoundManager';
 // import UiGraph from 'modules/UiGraph';
 // import UiNodeFactory from 'modules/UiNodeFactory/UiNodeFactory';
-import UpdateObject from 'interfaces/UpdateObject';
-import Immediate from 'scenes/transition/Immediate';
+import UpdateObject from "interfaces/UpdateObject";
+import Immediate from "scenes/transition/Immediate";
 
 /**
  * ゲームシーンの抽象クラス
@@ -20,11 +20,11 @@ export default abstract class Scene extends PIXI.Container {
   /**
    * 経過フレーム数
    */
-  protected elapsedFrameCount: number = 0;
+  protected elapsedFrameCount = 0;
   /**
    * UiGraph を利用して読み込む UI があるかどうか
    */
-  protected hasSceneUiGraph: boolean = true;
+  protected hasSceneUiGraph = true;
   /**
    * UiGraph でロードされた UI データ
    */
@@ -42,7 +42,7 @@ export default abstract class Scene extends PIXI.Container {
   /**
    * シーン開始用のトランジションオブジェクト
    */
-  protected transitionIn:  Transition = new Immediate();
+  protected transitionIn: Transition = new Immediate();
   /**
    * シーン終了用のトランジションオブジェクト
    */
@@ -136,16 +136,19 @@ export default abstract class Scene extends PIXI.Container {
   public beginLoadResource(onLoaded: () => void): Promise<void> {
     return new Promise((resolve) => {
       this.loadInitialResource(() => resolve());
-    }).then(() => {
-      return new Promise((resolve) => {
-        const additionalAssets = this.onInitialResourceLoaded();
-        this.loadAdditionalResource(additionalAssets, () => resolve());
+    })
+      .then(() => {
+        return new Promise((resolve) => {
+          const additionalAssets = this.onInitialResourceLoaded();
+          this.loadAdditionalResource(additionalAssets, () => resolve());
+        });
+      })
+      .then(() => {
+        onLoaded();
+      })
+      .then(() => {
+        this.onResourceLoaded();
       });
-    }).then(() => {
-      onLoaded();
-    }).then(() => {
-      this.onResourceLoaded();
-    });
   }
 
   /**
@@ -173,7 +176,7 @@ export default abstract class Scene extends PIXI.Container {
    * loadInitialResource 完了時のコールバックメソッド
    */
   protected onInitialResourceLoaded(): (LoaderAddParam | string)[] {
-    const additionalAssets:any = [];
+    const additionalAssets: any = [];
 
     // const name = Resource.Api.SceneUiGraph(this);
     // const uiGraph = GameManager.instance.game.loader.resources[name];
@@ -196,7 +199,8 @@ export default abstract class Scene extends PIXI.Container {
    * 初回リソースロードで発生した追加のリソースをロードする
    */
   protected loadAdditionalResource(
-    assets: (LoaderAddParam | string)[], onLoaded: () => void
+    assets: (LoaderAddParam | string)[],
+    onLoaded: () => void
   ) {
     if (assets.length <= 0) {
       this.onAdditionalResourceLoaded(onLoaded);
@@ -282,7 +286,7 @@ export default abstract class Scene extends PIXI.Container {
 
     for (let i = 0; i < assets.length; i++) {
       const asset = assets[i];
-      if (typeof asset === 'string') {
+      if (typeof asset === "string") {
         if (!loader.resources[asset] && !assetMap.has(asset)) {
           assetMap.set(asset, { name: asset, url: asset });
         }
@@ -298,33 +302,33 @@ export default abstract class Scene extends PIXI.Container {
     return loaderParams;
   }
 
-//   /**
-//    * BGM をループ再生する
-//    */
-//   protected playBgm(soundName: string): void {
-//     const bgm = SoundManager.getSound(soundName);
-//     if (bgm) {
-//       bgm.play(true);
-//     }
-//   }
+  //   /**
+  //    * BGM をループ再生する
+  //    */
+  //   protected playBgm(soundName: string): void {
+  //     const bgm = SoundManager.getSound(soundName);
+  //     if (bgm) {
+  //       bgm.play(true);
+  //     }
+  //   }
 
-//   /**
-//    * BGM 再生を止める
-//    */
-//   protected stopBgm(soundName: string): void {
-//     const bgm = SoundManager.getSound(soundName);
-//     if (bgm) {
-//       bgm.stop();
-//     }
-//   }
+  //   /**
+  //    * BGM 再生を止める
+  //    */
+  //   protected stopBgm(soundName: string): void {
+  //     const bgm = SoundManager.getSound(soundName);
+  //     if (bgm) {
+  //       bgm.stop();
+  //     }
+  //   }
 
-//   /**
-//    * 効果音を再生する
-//    */
-//   protected playSe(soundName: string): void {
-//     const se = SoundManager.getSound(soundName);
-//     if (se) {
-//       se.play();
-//     }
-//   }
+  //   /**
+  //    * 効果音を再生する
+  //    */
+  //   protected playSe(soundName: string): void {
+  //     const se = SoundManager.getSound(soundName);
+  //     if (se) {
+  //       se.play();
+  //     }
+  //   }
 }

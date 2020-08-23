@@ -1,7 +1,7 @@
-import * as PIXI from 'pixi.js';
-import LoaderAddParam from 'interfaces/LoaderAddParam';
-import Transition from 'interfaces/Transition';
-import UpdateObject from 'interfaces/UpdateObject';
+import * as PIXI from "pixi.js";
+import LoaderAddParam from "interfaces/LoaderAddParam";
+import Transition from "interfaces/Transition";
+import UpdateObject from "interfaces/UpdateObject";
 /**
  * ゲームシーンの抽象クラス
  * UiGraph を利用して UI 情報を透過的に読み込み初期化する

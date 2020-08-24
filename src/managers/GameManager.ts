@@ -4,7 +4,7 @@ import ApplicationOptions from "interfaces/ApplicationOptions";
 import Config from "Config";
 // import IndexedDBManager from 'managers/IndexedDBManager';
 // import SoundManager from 'managers/SoundManager';
-import Scene from "scenes/Scence";
+import Scene from "scenes/Scene";
 
 /**
  * ゲーム全体のマネージャ

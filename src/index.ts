@@ -1,4 +1,5 @@
 import GameManager from "managers/GameManager";
+import FirstScene from "scenes/FirstScene";
 
 window.onload = () => {
   GameManager.start({
@@ -8,4 +9,5 @@ window.onload = () => {
       backgroundColor: 0x1099bb,
     },
   });
+  GameManager.loadScene(new FirstScene());
 };

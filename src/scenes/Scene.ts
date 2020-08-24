@@ -56,11 +56,11 @@ export default abstract class Scene extends PIXI.Container {
 
     this.updateRegisteredObjects(delta);
 
-    // if (this.transitionIn.isActive()) {
-    //   this.transitionIn.update(delta);
-    // } else if (this.transitionOut.isActive()) {
-    //   this.transitionOut.update(delta);
-    // }
+    if (this.transitionIn.isActive()) {
+      this.transitionIn.update(delta);
+    } else if (this.transitionOut.isActive()) {
+      this.transitionOut.update(delta);
+    }
   }
 
   /**

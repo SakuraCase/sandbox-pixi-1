@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
-import ApplicationOptions from 'interfaces/ApplicationOptions';
-import Scene from 'scenes/Scence';
+import ApplicationOptions from "interfaces/ApplicationOptions";
+import Scene from "scenes/Scene";
 /**
  * ゲーム全体のマネージャ
  * 主にシーンを扱う

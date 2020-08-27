@@ -1,12 +1,12 @@
 import * as PIXI from "pixi.js";
-// import Resource from 'Resource';
+import Resource from "./Resource";
 import LoaderAddParam from "interfaces/LoaderAddParam";
-// import * as UI from 'interfaces/UiGraph/index';
+import * as UI from "interfaces/UiGraph/index";
 import Transition from "interfaces/Transition";
 import GameManager from "managers/GameManager";
 // import SoundManager from 'managers/SoundManager';
-// import UiGraph from 'modules/UiGraph';
-// import UiNodeFactory from 'modules/UiNodeFactory/UiNodeFactory';
+import UiGraph from "modules/UiGraph";
+import UiNodeFactory from "modules/UiNodeFactory/UiNodeFactory";
 import UpdateObject from "interfaces/UpdateObject";
 import Immediate from "scenes/transition/Immediate";
 
@@ -157,11 +157,11 @@ export default abstract class Scene extends PIXI.Container {
    */
   protected loadInitialResource(onLoaded: () => void): void {
     const assets = this.createInitialResourceList();
-    // const name = Resource.Api.SceneUiGraph(this);
+    const name = Resource.Api.SceneUiGraph(this);
     const loader = GameManager.instance.game.loader;
-    // if (this.hasSceneUiGraph && !loader.resources[name]) {
-    //   assets.push({ name, url: name });
-    // }
+    if (this.hasSceneUiGraph && !loader.resources[name]) {
+      assets.push({ name, url: name });
+    }
 
     const filteredAssets = this.filterLoadedAssets(assets);
 
@@ -178,19 +178,19 @@ export default abstract class Scene extends PIXI.Container {
   protected onInitialResourceLoaded(): (LoaderAddParam | string)[] {
     const additionalAssets: any = [];
 
-    // const name = Resource.Api.SceneUiGraph(this);
-    // const uiGraph = GameManager.instance.game.loader.resources[name];
-    // if (uiGraph) {
-    //   for (let i = 0; i < uiGraph.data.nodes.length; i++) {
-    //     const node = uiGraph.data.nodes[i];
-    //     if (node.type === 'sprite') {
-    //       additionalAssets.push({
-    //         name: node.params.textureName,
-    //         url: node.params.url
-    //       });
-    //     }
-    //   }
-    // }
+    const name = Resource.Api.SceneUiGraph(this);
+    const uiGraph = GameManager.instance.game.loader.resources[name];
+    if (uiGraph) {
+      for (let i = 0; i < uiGraph.data.nodes.length; i++) {
+        const node = uiGraph.data.nodes[i];
+        if (node.type === "sprite") {
+          additionalAssets.push({
+            name: node.params.textureName,
+            url: node.params.url,
+          });
+        }
+      }
+    }
 
     return additionalAssets;
   }
@@ -201,7 +201,7 @@ export default abstract class Scene extends PIXI.Container {
   protected loadAdditionalResource(
     assets: (LoaderAddParam | string)[],
     onLoaded: () => void
-  ) {
+  ): void {
     if (assets.length <= 0) {
       this.onAdditionalResourceLoaded(onLoaded);
       return;
@@ -229,48 +229,43 @@ export default abstract class Scene extends PIXI.Container {
    * beginLoadResource 完了時のコールバックメソッド
    */
   protected onResourceLoaded(): void {
-    // if (this.hasSceneUiGraph) {
-    //   const sceneUiGraphName = Resource.Api.SceneUiGraph(this);
-    //   const resources = GameManager.instance.game.loader.resources;
-    //   this.prepareUiGraphContainer(resources[sceneUiGraphName].data);
-    //   this.addChild(this.uiGraphContainer);
-    // }
+    if (this.hasSceneUiGraph) {
+      const sceneUiGraphName = Resource.Api.SceneUiGraph(this);
+      const resources = GameManager.instance.game.loader.resources;
+      this.prepareUiGraphContainer(resources[sceneUiGraphName].data);
+      this.addChild(this.uiGraphContainer);
+    }
   }
 
   /**
    * UiGraph 用の PIXI.Container インスタンスに UiGraph 要素をロードする
    */
-  // protected prepareUiGraphContainer(uiData: UI.Graph): void {
-  //   for (let i = 0; i < uiData.nodes.length; i++) {
-  //     const nodeData = uiData.nodes[i];
-
-  //     let factory = UiGraph.getFactory(nodeData.type);
-  //     if (!factory) {
-  //       factory = this.getCustomUiGraphFactory(nodeData.type);
-  //       if (!factory) {
-  //         continue;
-  //       }
-  //     }
-
-  //     const node = factory.createUiNodeByGraphElement(nodeData);
-  //     if (!node) {
-  //       continue;
-  //     }
-
-  //     if (nodeData.events) {
-  //       factory.attachUiEventByGraphElement(nodeData.events, node, this);
-  //     }
-
-  //     this.uiGraph[nodeData.id] = node;
-  //     this.uiGraphContainer.addChild(node);
-  //   }
-  // }
+  protected prepareUiGraphContainer(uiData: UI.Graph): void {
+    for (let i = 0; i < uiData.nodes.length; i++) {
+      const nodeData = uiData.nodes[i];
+      let factory = UiGraph.getFactory(nodeData.type);
+      if (!factory) {
+        factory = this.getCustomUiGraphFactory(nodeData.type);
+        if (!factory) {
+          continue;
+        }
+      }
+      const node = factory.createUiNodeByGraphElement(nodeData);
+      if (!node) {
+        continue;
+      }
+      if (nodeData.events) {
+        factory.attachUiEventByGraphElement(nodeData.events, node, this);
+      }
+      this.uiGraph[nodeData.id] = node;
+      this.uiGraphContainer.addChild(node);
+    }
+  }
 
   /**
    * UiGraph にシーン独自の要素を追加する場合にこのメソッドを利用する
    */
-  // protected getCustomUiGraphFactory(_type: string): UiNodeFactory | null {
-  protected getCustomUiGraphFactory(_type: string): null {
+  protected getCustomUiGraphFactory(_type: string): UiNodeFactory | null {
     return null;
   }
 

@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "text",
+      "type": "text",
+      "position": [50, 50],
+      "params": {
+        "family": "MisakiGothic",
+        "text": "UI TEXT TEST",
+        "size": 58,
+        "color": "0xffffff",
+        "padding": 14
+      }
+    },
+    {
+      "id": "button",
+      "type": "sprite",
+      "position": [200, 270],
+      "params": {
+        "textureName": "ui/button.png",
+        "url": "ui/button.png"
+      },
+      "events": [
+        {
+          "type": "pointerdown",
+          "callback": "onClick",
+          "arguments": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "screen": {
+      "width": 600,
+      "height": 400 
+    }
+  }
+}

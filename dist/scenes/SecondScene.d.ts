@@ -3,8 +3,6 @@ import Scene from "./Scene";
  * タイトルシーン
  */
 export default class SecondScene extends Scene {
-    private text;
-    private count;
     /**
      * コンストラクタ
      */
@@ -17,4 +15,5 @@ export default class SecondScene extends Scene {
      * 次のシーンへの遷移
      */
     nextScene(): void;
+    onClick(): void;
 }

@@ -1,6 +1,8 @@
 import * as PIXI from "pixi.js";
 import LoaderAddParam from "interfaces/LoaderAddParam";
+import * as UI from "interfaces/UiGraph/index";
 import Transition from "interfaces/Transition";
+import UiNodeFactory from "modules/UiNodeFactory/UiNodeFactory";
 import UpdateObject from "interfaces/UpdateObject";
 /**
  * ゲームシーンの抽象クラス
@@ -96,10 +98,11 @@ export default abstract class Scene extends PIXI.Container {
     /**
      * UiGraph 用の PIXI.Container インスタンスに UiGraph 要素をロードする
      */
+    protected prepareUiGraphContainer(uiData: UI.Graph): void;
     /**
      * UiGraph にシーン独自の要素を追加する場合にこのメソッドを利用する
      */
-    protected getCustomUiGraphFactory(_type: string): null;
+    protected getCustomUiGraphFactory(_type: string): UiNodeFactory | null;
     /**
      * 渡されたアセットのリストからロード済みのものをフィルタリングする
      */

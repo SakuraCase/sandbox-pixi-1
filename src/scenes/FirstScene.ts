@@ -8,32 +8,17 @@ import Fade from "./transition/Fade";
  * タイトルシーン
  */
 export default class FirstScene extends Scene {
-  private text!: PIXI.Text;
-  private count = 0;
-
   /**
    * コンストラクタ
    */
   constructor() {
     super();
 
-    const textStyle = new PIXI.TextStyle({
-      fontSize: 64,
-      fill: 0xffffff,
-    });
-
-    const renderer = GameManager.instance.game.renderer;
-
     this.transitionIn = new Fade(1.0, 0.0, -0.025);
     this.transitionOut = new Fade(0.0, 1.0, 0.025);
 
-    this.text = new PIXI.Text("first scene", textStyle);
-    this.text.interactive = true;
-    this.text.anchor.set(0.5, 0.5);
-    this.text.position.set(renderer.width * 0.5, renderer.height * 0.5);
-    this.addChild(this.text);
-
-    this.text.on("pointerdown", this.nextScene);
+    this.addChild(this.createText("Sceneへ", 10, 20, new SecondScene()));
+    this.addChild(this.createText("同じSceneへ", 10, 50, new SecondScene()));
   }
 
   /**
@@ -41,14 +26,31 @@ export default class FirstScene extends Scene {
    */
   public update(dt: number): void {
     super.update(dt);
-
-    this.text.text = `first scene \n${this.count++}`;
   }
 
   /**
-   * 次のシーンへの遷移
+   * 実験用個別シーンへ遷移させるリンクの作成
    */
-  public nextScene(): void {
-    GameManager.loadScene(new SecondScene());
+  public createText(
+    str: string,
+    x: number,
+    y: number,
+    scene: Scene
+  ): PIXI.Text {
+    const text = new PIXI.Text(str, {
+      fontSize: 20,
+      fill: 0xffffff,
+    });
+
+    text.interactive = true;
+    text.buttonMode = true;
+    text.anchor.set(0, 0.5);
+    text.position.set(x, y);
+
+    text.on("pointerdown", () => {
+      GameManager.loadScene(scene);
+    });
+
+    return text;
   }
 }

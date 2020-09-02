@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "id": "button",
+      "type": "sprite",
+      "position": [800, 650],
+      "params": {
+        "textureName": "ui/button.png",
+        "url": "ui/button.png"
+      },
+      "events": [
+        {
+          "type": "pointerdown",
+          "callback": "backScene",
+          "arguments": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "screen": {
+      "width": 1200,
+      "height": 800 
+    }
+  }
+}

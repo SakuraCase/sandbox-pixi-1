@@ -4,7 +4,6 @@ import LoaderAddParam from "interfaces/LoaderAddParam";
 import * as UI from "interfaces/UiGraph/index";
 import Transition from "interfaces/Transition";
 import GameManager from "managers/GameManager";
-// import SoundManager from 'managers/SoundManager';
 import UiGraph from "modules/UiGraph";
 import UiNodeFactory from "modules/UiNodeFactory/UiNodeFactory";
 import UpdateObject from "interfaces/UpdateObject";
@@ -22,9 +21,9 @@ export default abstract class Scene extends PIXI.Container {
    */
   protected elapsedFrameCount = 0;
   /**
-   * UiGraph を利用して読み込む UI があるかどうか
+   * UiName
    */
-  protected hasSceneUiGraph = true;
+  protected uiName = "";
   /**
    * UiGraph でロードされた UI データ
    */
@@ -157,9 +156,9 @@ export default abstract class Scene extends PIXI.Container {
    */
   protected loadInitialResource(onLoaded: () => void): void {
     const assets = this.createInitialResourceList();
-    const name = Resource.Api.SceneUiGraph(this);
+    const name = Resource.Api.SceneUiGraph(this.uiName);
     const loader = GameManager.instance.game.loader;
-    if (this.hasSceneUiGraph && !loader.resources[name]) {
+    if (this.uiName && !loader.resources[name]) {
       assets.push({ name, url: name });
     }
 
@@ -178,7 +177,7 @@ export default abstract class Scene extends PIXI.Container {
   protected onInitialResourceLoaded(): (LoaderAddParam | string)[] {
     const additionalAssets: any = [];
 
-    const name = Resource.Api.SceneUiGraph(this);
+    const name = Resource.Api.SceneUiGraph(this.uiName);
     const uiGraph = GameManager.instance.game.loader.resources[name];
     if (uiGraph) {
       for (let i = 0; i < uiGraph.data.nodes.length; i++) {
@@ -229,8 +228,8 @@ export default abstract class Scene extends PIXI.Container {
    * beginLoadResource 完了時のコールバックメソッド
    */
   protected onResourceLoaded(): void {
-    if (this.hasSceneUiGraph) {
-      const sceneUiGraphName = Resource.Api.SceneUiGraph(this);
+    if (this.uiName) {
+      const sceneUiGraphName = Resource.Api.SceneUiGraph(this.uiName);
       const resources = GameManager.instance.game.loader.resources;
       this.prepareUiGraphContainer(resources[sceneUiGraphName].data);
       this.addChild(this.uiGraphContainer);
@@ -296,34 +295,4 @@ export default abstract class Scene extends PIXI.Container {
     assetMap.forEach((value: LoaderAddParam) => loaderParams.push(value));
     return loaderParams;
   }
-
-  //   /**
-  //    * BGM をループ再生する
-  //    */
-  //   protected playBgm(soundName: string): void {
-  //     const bgm = SoundManager.getSound(soundName);
-  //     if (bgm) {
-  //       bgm.play(true);
-  //     }
-  //   }
-
-  //   /**
-  //    * BGM 再生を止める
-  //    */
-  //   protected stopBgm(soundName: string): void {
-  //     const bgm = SoundManager.getSound(soundName);
-  //     if (bgm) {
-  //       bgm.stop();
-  //     }
-  //   }
-
-  //   /**
-  //    * 効果音を再生する
-  //    */
-  //   protected playSe(soundName: string): void {
-  //     const se = SoundManager.getSound(soundName);
-  //     if (se) {
-  //       se.play();
-  //     }
-  //   }
 }

@@ -1,5 +1,5 @@
+import * as PIXI from "pixi.js";
 import GameManager from "managers/GameManager";
-import Scene from "scenes/Scene";
 
 /**
  * リソースの URL や命名規則のマスタ
@@ -9,16 +9,8 @@ const Resource = Object.freeze({
    * マスターデータ API 情報を有するオブジェクト
    */
   Api: {
-    SceneUiGraph: (scene: Scene): string => {
-      console.log(scene.constructor.name);
-      //const snake_case = scene.constructor.name;
-      //  .replace(/([A-Z])/g, (s) => {
-      //    return `_${s.charAt(0).toLowerCase()}`;
-      //  })
-      //  .replace(/^_/, "");
-
-      // return `ui_graph/${snake_case}.json`;
-      return `ui_graph/second_scene.json`;
+    SceneUiGraph: (name: string): string => {
+      return `ui_graph/${name}.json`;
     },
   },
 
@@ -30,7 +22,20 @@ const Resource = Object.freeze({
   /**
    * 静的なリソースを有するオブジェクト
    */
-  Static: {},
+  Static: {
+    Color: "static/c.json",
+    Anime: "static/anime.json",
+    Button: "ui/button.png",
+  },
+
+  TextureFrame: {
+    Anime: (index = 1): PIXI.Texture => {
+      return PIXI.utils.TextureCache[`a${index}.png`];
+    },
+    Color: (name = "blue"): PIXI.Texture => {
+      return PIXI.utils.TextureCache[`${name}.png`];
+    },
+  },
 
   /**
    * スプライトシートの最大フレーム数を返す関数

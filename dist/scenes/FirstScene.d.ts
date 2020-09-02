@@ -1,10 +1,9 @@
+import * as PIXI from "pixi.js";
 import Scene from "./Scene";
 /**
  * タイトルシーン
  */
 export default class FirstScene extends Scene {
-    private text;
-    private count;
     /**
      * コンストラクタ
      */
@@ -14,7 +13,7 @@ export default class FirstScene extends Scene {
      */
     update(dt: number): void;
     /**
-     * 次のシーンへの遷移
+     * 実験用個別シーンへ遷移させるリンクの作成
      */
-    nextScene(): void;
+    createText(str: string, x: number, y: number, scene: Scene): PIXI.Text;
 }

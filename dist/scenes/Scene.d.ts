@@ -16,9 +16,9 @@ export default abstract class Scene extends PIXI.Container {
      */
     protected elapsedFrameCount: number;
     /**
-     * UiGraph を利用して読み込む UI があるかどうか
+     * UiName
      */
-    protected hasSceneUiGraph: boolean;
+    protected uiName: string;
     /**
      * UiGraph でロードされた UI データ
      */

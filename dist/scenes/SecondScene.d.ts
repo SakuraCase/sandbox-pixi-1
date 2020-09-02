@@ -1,3 +1,4 @@
+import LoaderAddParam from "../interfaces/LoaderAddParam";
 import Scene from "./Scene";
 /**
  * タイトルシーン
@@ -11,9 +12,10 @@ export default class SecondScene extends Scene {
      * 毎フレームの更新処理
      */
     update(dt: number): void;
+    protected createInitialResourceList(): (LoaderAddParam | string)[];
+    protected onResourceLoaded(): void;
     /**
-     * 次のシーンへの遷移
+     * 前のシーンへの遷移
      */
-    nextScene(): void;
-    onClick(): void;
+    backScene(): void;
 }

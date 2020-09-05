@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { gsap } from "gsap";
 import Resource from "./Resource";
 import LoaderAddParam from "interfaces/LoaderAddParam";
 import * as UI from "interfaces/UiGraph/index";
@@ -46,6 +47,11 @@ export default abstract class Scene extends PIXI.Container {
    * シーン終了用のトランジションオブジェクト
    */
   protected transitionOut: Transition = new Immediate();
+
+  constructor() {
+    super();
+    gsap.globalTimeline.clear();
+  }
 
   /**
    * GameManager によって requestAnimationFrame 毎に呼び出されるメソッド

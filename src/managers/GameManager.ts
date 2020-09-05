@@ -5,6 +5,8 @@ import Config from "Config";
 // import IndexedDBManager from 'managers/IndexedDBManager';
 // import SoundManager from 'managers/SoundManager';
 import Scene from "scenes/Scene";
+import { gsap } from "gsap";
+import { PixiPlugin } from "gsap/PixiPlugin";
 
 /**
  * ゲーム全体のマネージャ
@@ -45,7 +47,8 @@ export default class GameManager {
     if (GameManager.instance) {
       throw new Error("GameManager can be instantiate only once");
     }
-
+    gsap.registerPlugin(PixiPlugin);
+    PixiPlugin.registerPIXI(app);
     this.game = app;
   }
 
@@ -89,11 +92,14 @@ export default class GameManager {
     GameManager.enableFullScreenIfNeeded();
 
     // メインループ
+    game.ticker.stop();
+    gsap.ticker.add(() => {
+      game.ticker.update();
+    });
     game.ticker.add((delta: number) => {
       if (instance.currentScene) {
         instance.currentScene.update(delta);
       }
-
       // SoundManager.update(delta);
     });
   }

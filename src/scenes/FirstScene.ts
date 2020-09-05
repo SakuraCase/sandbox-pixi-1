@@ -3,6 +3,7 @@ import GameManager from "managers/GameManager";
 import Scene from "./Scene";
 import SecondScene from "./SecondScene";
 import Fade from "./transition/Fade";
+import GaspTimeRemap from "./GsapTimeRemap";
 
 /**
  * タイトルシーン
@@ -18,7 +19,9 @@ export default class FirstScene extends Scene {
     this.transitionOut = new Fade(0.0, 1.0, 0.025);
 
     this.addChild(this.createText("Sceneへ", 10, 20, new SecondScene()));
-    this.addChild(this.createText("同じSceneへ", 10, 50, new SecondScene()));
+    this.addChild(
+      this.createText("GaspTimeRemap", 10, 50, new GaspTimeRemap())
+    );
   }
 
   /**

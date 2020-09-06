@@ -6,7 +6,7 @@ import FirstScene from "./FirstScene";
 import Fade from "./transition/Fade";
 
 /**
- * タイトルシーン
+ * GASPテスト
  */
 export default class GaspTimeRemap extends Scene {
   /**
@@ -62,6 +62,8 @@ export default class GaspTimeRemap extends Scene {
    * 前のシーンへの遷移
    */
   public backScene(): void {
+    // clearしないとエラーが出た。Scenceのコンストラクタに持たせたらアニメーションしなくなったので一旦ここに
+    gsap.globalTimeline.clear();
     GameManager.loadScene(new FirstScene());
   }
 

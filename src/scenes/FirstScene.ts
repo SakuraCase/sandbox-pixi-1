@@ -5,6 +5,7 @@ import SecondScene from "./SecondScene";
 import Fade from "./transition/Fade";
 import GaspTimeRemap from "./GsapTimeRemap";
 import LeftInRightOutCards from "./LeftInRightOutCards";
+import DragAndDrop1 from "./DragAndDrop1";
 
 /**
  * タイトルシーン
@@ -31,6 +32,10 @@ export default class FirstScene extends Scene {
         100,
         new LeftInRightOutCards()
       )
+    );
+
+    this.addChild(
+      this.createText("ドラッグアンドドロップ", 10, 180, new DragAndDrop1())
     );
   }
 

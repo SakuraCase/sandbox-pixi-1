@@ -1,8 +1,12 @@
+import * as PIXI from "pixi.js";
 import Scene from "./Scene";
 /**
- * タイトルシーン
+ * ドラッグドロップ
  */
 export default class DragAndDrop1 extends Scene {
+    private text;
+    private cards;
+    private gf?;
     /**
      * コンストラクタ
      */
@@ -15,4 +19,8 @@ export default class DragAndDrop1 extends Scene {
      * 前のシーンへの遷移
      */
     backScene(): void;
+    addEvent(obj: PIXI.Graphics): void;
+    onDragStart(e: PIXI.InteractionEvent): void;
+    onDragMove(e: PIXI.InteractionEvent): void;
+    onDragEnd(e: PIXI.InteractionEvent): void;
 }

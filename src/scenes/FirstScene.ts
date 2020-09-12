@@ -7,6 +7,7 @@ import GaspTimeRemap from "./GsapTimeRemap";
 import LeftInRightOutCards from "./LeftInRightOutCards";
 import DragAndDrop1 from "./DragAndDrop1";
 import Filter from "./Filter";
+import Text from "./Text";
 
 /**
  * タイトルシーン
@@ -38,10 +39,10 @@ export default class FirstScene extends Scene {
     this.addChild(
       this.createText("ドラッグアンドドロップ", 10, 180, new DragAndDrop1())
     );
-
     this.addChild(
       this.createText("イベント制御/フィルタ", 10, 210, new Filter())
     );
+    this.addChild(this.createText("テキストエリア", 10, 240, new Text()));
   }
 
   /**

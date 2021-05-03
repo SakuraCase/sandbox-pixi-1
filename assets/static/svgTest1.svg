@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="210mm" height="297mm" version="1.1" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <path
+    d="m 132.97387,98.488823 c 0,14.912517 -12.48988,12.168037 -27.4024,12.168037 -14.912521,0 -26.600602,2.74448 -26.600603,-12.168037 0,-14.912518 12.088985,-27.001501 27.001503,-27.001499 14.91252,-10e-7 27.0015,12.088982 27.0015,27.001499 z"
+    style="opacity:0.99375;fill:#677821;stroke-width:0.573;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.261194;paint-order:markers fill stroke"
+    >
+     <animate attributeName="d"
+             repeatCount="indefinite"
+             dur="2s"
+             to="m 132.97387,98.488823 c 0,14.912517 -12.08898,2.412697 -27.0015,2.412697 -14.912517,0 -27.001502,12.49982 -27.001503,-2.412697 0,-14.912518 12.088985,-27.001501 27.001503,-27.001499 14.91252,-10e-7 27.0015,12.088982 27.0015,27.001499 z"
+             style="opacity:0.99375;fill:#677821;stroke-width:0.573;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.261194;paint-order:markers fill stroke"
+             />
+    </path>
+</svg>

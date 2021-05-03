@@ -8,6 +8,7 @@ import LeftInRightOutCards from "./LeftInRightOutCards";
 import DragAndDrop1 from "./DragAndDrop1";
 import Filter from "./Filter";
 import Text from "./Text";
+import Svg from "./Svg";
 
 /**
  * タイトルシーン
@@ -43,6 +44,7 @@ export default class FirstScene extends Scene {
       this.createText("イベント制御/フィルタ", 10, 210, new Filter())
     );
     this.addChild(this.createText("テキストエリア", 10, 240, new Text()));
+    this.addChild(this.createText("SVG", 10, 270, new Svg()));
   }
 
   /**

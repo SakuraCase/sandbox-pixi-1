@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as PIXI from "pixi.js";
 import Resource from "./Resource";
 import LoaderAddParam from "interfaces/LoaderAddParam";
@@ -133,11 +135,11 @@ export default abstract class Scene extends PIXI.Container {
    * デフォルトでは UiGraph 用の情報が取得される
    */
   public beginLoadResource(onLoaded: () => void): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       this.loadInitialResource(() => resolve());
     })
       .then(() => {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
           const additionalAssets = this.onInitialResourceLoaded();
           this.loadAdditionalResource(additionalAssets, () => resolve());
         });
